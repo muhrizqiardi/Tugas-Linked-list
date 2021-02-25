@@ -1,11 +1,11 @@
 #include <iostream>
 using namespace std;
 
-// Pendeklarasian dan inisialisasi linked list
+// Pendeklarasian dan inisialisasi linked list Mahasiswa (berurutan dari yang paling kecil (head) ke yang paling besar (tail))
 struct Mahasiswa
 {
     string nama;
-    string NIM;
+    int NIM;
     Mahasiswa *next;
 };
 Mahasiswa *head;
@@ -15,8 +15,57 @@ void buat()
     head = NULL;
 }
 
-// Fungsi untuk menambahkan data mahasiswa
-void isi(string nama, string NIM)
+// Fungsi untuk menambahkan data mahasiswa (secara berurutan)
+void isi(string nama, int NIM) {
+    Mahasiswa *prev = new Mahasiswa;
+    Mahasiswa *baru = new Mahasiswa;
+    Mahasiswa *cur = new Mahasiswa; 
+    baru->nama = nama;
+    baru->NIM = NIM;
+
+    if (head == NULL)
+    {
+        head = baru;
+        baru->next = NULL;
+    }
+    else
+    {   
+        cout << "\n >masuk1 \n";
+        prev = NULL;
+        cur = baru;
+        cur->next = head;
+
+        while (cur != NULL || cur->next->NIM > NIM ) {
+            cout << "\n >masuk2 \n";
+            cur = baru;
+            string testtt = (prev == NULL) ? "NULL" : prev->nama;
+            prev = cur;
+            cout << "\n >masuk2.1 "
+                << " " << testtt << " " << cur->nama << " " << cur->next->nama << " ";
+            cur = cur->next;
+            cout << "\n >masuk2.2 \n";
+        }
+
+        cout << "\n >masuk3 \n";
+        baru = cur;
+        prev->next = baru;
+        baru->next = cur->next;
+
+        // if (baru->NIM <= head->NIM) {
+        //     baru->next = head;
+        //     head = baru;
+        // }
+        // else
+        // {
+        //     head->next = baru;
+        // }
+
+        // baru->next = head;
+        // head = baru;
+    }
+}
+
+void isi_old(string nama, int NIM)
 {
     Mahasiswa *baru = new Mahasiswa;
     baru->nama = nama;
@@ -34,7 +83,7 @@ void isi(string nama, string NIM)
 }
 
 // Fungsi untuk menghapus data mahasiswa
-void hapus(string nama, string NIM)
+void hapus(string nama, int NIM)
 {
     Mahasiswa *cur;
     Mahasiswa *prev;
@@ -78,11 +127,11 @@ void lihat()
 int main()
 {
     buat(); // Menginisialisasi linked list
-    int menu;
+    char menu;
     cout
         << "\n\n\n"
         << "Halo, selamat datang. ";
-    while (menu != 4)
+    while (true)
     {
         // Print menu
         cout
@@ -90,22 +139,23 @@ int main()
             << "\n1. Isi data mahasiswa"
             << "\n2. Hapus data mahasiswa"
             << "\n3. Lihat data mahasiswa"
-            << "\n4. Keluar dari program\n>> ";
+            << "\nKetik x untuk keluar dari program\n>> ";
         cin >> menu;
 
         // Pilih menu
-        string input_nama, input_NIM;
+        string input_nama; int input_NIM;
         switch (menu)
         {
-        case 1:
+        case '1':
             cout << "Isi nama: \n>> ";
             cin >> input_nama;
             cout << "Isi NIM: \n>> ";
             cin >> input_NIM;
+            cin.ignore();
             isi(input_nama, input_NIM);
             break;
 
-        case 2:
+        case '2':
             cout << "Isi nama: \n>> ";
             cin >> input_nama;
             cout << "Isi NIM: \n>> ";
@@ -113,12 +163,13 @@ int main()
             hapus(input_nama, input_NIM);
             break;
 
-        case 3:
+        case '3':
             cout << "\n\n";
             lihat();
             break;
 
-        case 4:
+        case 'x':
+        case 'X':
             cout << "\nSampai Jumpa :)";
             break;
 
