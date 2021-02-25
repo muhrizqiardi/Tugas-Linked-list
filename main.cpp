@@ -10,16 +10,17 @@ struct Mahasiswa
 };
 Mahasiswa *head;
 
-void buat() 
+void buat()
 {
     head = NULL;
 }
 
 // Fungsi untuk menambahkan data mahasiswa (secara berurutan)
-void isi(string nama, int NIM) {
+void isi(string nama, int NIM)
+{
     Mahasiswa *prev = new Mahasiswa;
     Mahasiswa *baru = new Mahasiswa;
-    Mahasiswa *cur = new Mahasiswa; 
+    Mahasiswa *cur = new Mahasiswa;
     baru->nama = nama;
     baru->NIM = NIM;
 
@@ -29,14 +30,15 @@ void isi(string nama, int NIM) {
         baru->next = NULL;
     }
     else
-    {   
+    {
         cout << "\n >masuk1 \n";
         prev = NULL;
         cout << "\n >masuk1.1 \n";
         cur = head;
         cout << "\n >masuk1.2 \n";
 
-        while (cur != NULL && cur->NIM > baru->NIM ) {
+        while (cur != NULL && cur->NIM > baru->NIM)
+        {
             cout << "\n >masuk2 \n";
             prev = cur;
             cur = cur->next;
@@ -44,11 +46,11 @@ void isi(string nama, int NIM) {
             // string testtt = (prev == NULL) ? "NULL" : prev->nama;
             // string testtt2 = (cur->next == NULL) ? "NULL" : cur->next->nama;
             // cout << "\n >masuk2.1 "
-                // << " " << testtt << " " << cur->nama << " " << testtt2 << " \n";
+            // << " " << testtt << " " << cur->nama << " " << testtt2 << " \n";
             // cout << "\n >masuk2.2 \n";
         }
-        
-        prev->next = baru;
+        cout << "\n >masuk1.2 \n";
+        prev->next = cur; // Unhandled exception thrown: write access violation. prev was nullptr.
         baru->next = cur->next;
 
         // if (baru->NIM <= head->NIM) {
@@ -70,16 +72,16 @@ void isi_old(string nama, int NIM)
     Mahasiswa *baru = new Mahasiswa;
     baru->nama = nama;
     baru->NIM = NIM;
-    if (head == NULL) 
+    if (head == NULL)
     {
         head = baru;
         baru->next = NULL;
-    } 
-    else 
+    }
+    else
     {
         baru->next = head;
         head = baru;
-    } 
+    }
 }
 
 // Fungsi untuk menghapus data mahasiswa
@@ -92,7 +94,7 @@ void hapus(string nama, int NIM)
 
     while (cur != NULL)
     {
-        if ( (cur->nama == nama) && (cur->NIM == NIM))
+        if ((cur->nama == nama) && (cur->NIM == NIM))
         {
             prev->next = cur->next;
             delete cur;
@@ -111,13 +113,13 @@ void hapus(string nama, int NIM)
 }
 
 // Fungsi untuk mencetak data mahasiswa
-void lihat() 
+void lihat()
 {
     Mahasiswa *cur;
     cur = head;
     while (cur != NULL)
     {
-        cout 
+        cout
             << "Nama   : " << cur->nama << "\n"
             << "NIM    : " << cur->NIM << "\n\n";
         cur = cur->next;
@@ -143,7 +145,8 @@ int main()
         cin >> menu;
 
         // Pilih menu
-        string input_nama; int input_NIM;
+        string input_nama;
+        int input_NIM;
         switch (menu)
         {
         case '1':
