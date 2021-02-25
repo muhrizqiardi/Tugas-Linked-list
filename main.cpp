@@ -32,12 +32,14 @@ void isi(string nama, int NIM) {
     {   
         cout << "\n >masuk1 \n";
         prev = NULL;
+        cout << "\n >masuk1.1 \n";
         cur = head;
+        cout << "\n >masuk1.2 \n";
 
-        while (cur != NULL || cur->NIM > NIM ) {
+        while (cur != NULL && cur->NIM > baru->NIM ) {
+            cout << "\n >masuk2 \n";
             prev = cur;
             cur = cur->next;
-            cout << "\n >masuk2 \n";
             // cur = baru;
             // string testtt = (prev == NULL) ? "NULL" : prev->nama;
             // string testtt2 = (cur->next == NULL) ? "NULL" : cur->next->nama;
@@ -45,9 +47,7 @@ void isi(string nama, int NIM) {
                 // << " " << testtt << " " << cur->nama << " " << testtt2 << " \n";
             // cout << "\n >masuk2.2 \n";
         }
-
-        cout << "\n >masuk3 \n";
-        baru = cur;
+        
         prev->next = baru;
         baru->next = cur->next;
 
